@@ -1,72 +1,98 @@
 package com.example.andoridtest
 
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var text: TextView
+    lateinit var textCount: TextView
+    lateinit var sharedPref : SharedPreferences
+    companion object {
+        const val COUNT_KEY = "COUNT_KEY" // const key to save/read value from bundle
+    }
+
+    private var counter = 0
+        set(value) {
+            field = value
+            textCount.text = value.toString()
+        }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        text = findViewById(R.id.textView)
+        //textCount = findViewById<View>(R.id.textViewCounter) as TextView
+        sharedPref = getPreferences(MODE_PRIVATE)
+        sharedPref.getInt("count", counter)
+        Log.i("MyLog", "valOnStart ${counter}")
+
 
     }
-
     override fun onStart() {
         super.onStart()
         Toast.makeText(applicationContext, "onStart", Toast.LENGTH_SHORT).show()
-        Log.i("LogStart", "onStart")
-    }
+        Log.i("MyLog", "onStart")
 
+    }
     override fun onResume() {
         super.onResume()
         Toast.makeText(applicationContext, "onResume", Toast.LENGTH_SHORT).show()
-        Log.i("ResumeLog", "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Toast.makeText(applicationContext, "onPause", Toast.LENGTH_SHORT).show()
-        Log.i("PauseLog", "onPause")
+        Log.i("MyLog", "onResume")
 
     }
-
-    override fun onStop() {
-        super.onStop()
-        Toast.makeText(applicationContext, "onStop", Toast.LENGTH_SHORT).show()
-        Log.i("StopLog", "onStop")
-    }
-
     override fun onRestart() {
         super.onRestart()
         Toast.makeText(applicationContext, "onRestart", Toast.LENGTH_SHORT).show()
-        Log.i("RestartLog", "onRestart")
-    }
-
-    fun setOnClickListenerUp() {
-        text.text = ((text.text.toString().toInt() + 1).toString())
-
+        Log.i("MyLog", "onRestart")
 
     }
-    fun setOnClickListenerDown() {
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(applicationContext, "onPause", Toast.LENGTH_SHORT).show()
+        Log.i("MyLog", "onPause")
+        sharedPref.edit().putInt("count", counter).apply()
+        Log.i("MyLog", "valOnStop ${counter}")
+        var nigg = 69
+        sharedPref.getInt("count", nigg)
+        Log.i("MyLog", "valOnStopRet ${nigg}")
 
-        if (text.text.toString().toInt() > 0) {
-            text.text = (((text.text.toString().toInt() -1).toString()))
+    }
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(applicationContext, "onStop", Toast.LENGTH_SHORT).show()
+        Log.i("MyLog", "onStop")
+
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(applicationContext, "onDestroy", Toast.LENGTH_SHORT).show()
+        Log.i("MyLog", "onDestroy")
+
+    }
+    fun setOnClickListenerUp(view: View) {
+        counter = textCount.text.toString().toInt() + 1
+        textCount.text = counter.toString()
+
+    }
+    fun setOnClickListenerDown(view: View) {
+        if(counter > 0)   {
+            counter--
+            textCount.text = counter.toString()
         }
     }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.i("MyLog", "onSaveInstanceState")
 
-    override fun onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState)
-        savedInstanceState.putInt("count", text)
+        outState.putInt(COUNT_KEY, counter)
     }
 
-    override fun onRestoreInstanceState(Bundle savedInstanceState) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        text = savedInstanceState.getInt("count")
+        Log.i("MyLog", "onRestoreInstanceState")
 
+        counter = savedInstanceState.getInt(COUNT_KEY)
     }
 }
