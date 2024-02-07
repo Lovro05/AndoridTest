@@ -1,5 +1,6 @@
 package com.example.andoridtest
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,13 +24,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //textCount = findViewById<View>(R.id.textViewCounter) as TextView
+        textCount = findViewById<View>(R.id.textView) as TextView
         sharedPref = getPreferences(MODE_PRIVATE)
         sharedPref.getInt("count", counter)
         Log.i("MyLog", "valOnStart ${counter}")
-
-
     }
+
     override fun onStart() {
         super.onStart()
         Toast.makeText(applicationContext, "onStart", Toast.LENGTH_SHORT).show()
@@ -54,9 +54,9 @@ class MainActivity : AppCompatActivity() {
         Log.i("MyLog", "onPause")
         sharedPref.edit().putInt("count", counter).apply()
         Log.i("MyLog", "valOnStop ${counter}")
-        var nigg = 69
-        sharedPref.getInt("count", nigg)
-        Log.i("MyLog", "valOnStopRet ${nigg}")
+        var numberSharedPref = 69
+        sharedPref.getInt("count", numberSharedPref)
+        Log.i("MyLog", "valOnStopRet ${numberSharedPref}")
 
     }
     override fun onStop() {
@@ -73,6 +73,14 @@ class MainActivity : AppCompatActivity() {
     }
     fun setOnClickListenerUp(view: View) {
         counter = textCount.text.toString().toInt() + 1
+        if (counter == 10)
+        {
+            val intent = Intent(this, SuccessActivity::class.java).apply {
+                putExtra("name", findViewById<TextView>(R.id.plainTextName).text.toString());
+            }
+            startActivity(intent);
+            textCount.text = "0"
+        }
         textCount.text = counter.toString()
 
     }
