@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 putExtra("name", findViewById<TextView>(R.id.plainTextName).text.toString());
             }
             startActivity(intent);
-            textCount.text = "0"
+            counter = 0
         }
         textCount.text = counter.toString()
 
