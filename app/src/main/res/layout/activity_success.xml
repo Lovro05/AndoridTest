@@ -34,11 +34,11 @@
         <Button
             android:id="@+id/buttonIntent"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:width="150dp"
             android:height="50dp"
-            android:layout_height="wrap_content"
-            android:text="buttonIntent"
+            android:text="SMS"
             android:textSize="16dp" />
 
     </LinearLayout>

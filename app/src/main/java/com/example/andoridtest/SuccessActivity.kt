@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
 import android.widget.Button
+import android.view.View
 import android.widget.TextView
 
 class SuccessActivity : AppCompatActivity() {
@@ -14,8 +15,8 @@ class SuccessActivity : AppCompatActivity() {
 
         val text = findViewById<TextView>(R.id.successText)
         val button = findViewById<Button>(R.id.buttonIntent)
-
         val ime = intent.getStringExtra("name")
+
         text.text = "Reached goal: 10 steps\nCongratulations $ime!"
 
         button.setOnClickListener {
