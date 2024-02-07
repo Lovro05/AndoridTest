@@ -4,32 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/black"
     tools:context=".SuccessActivity">
 
     <LinearLayout
         android:layout_width="500dp"
         android:layout_height="500dp"
-        android:layout_marginStart="1dp"
-        android:gravity="center|center_vertical"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="204dp"
+        android:gravity="center"
         android:orientation="vertical"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.726"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <TextView
             android:id="@+id/successText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="19dp" />
 
         <Button
             android:id="@+id/buttonIntent"
             android:layout_width="wrap_content"
+            android:layout_marginTop="25dp"
+            android:width="150dp"
+            android:height="50dp"
             android:layout_height="wrap_content"
-            android:text="buttonIntent" />
+            android:text="buttonIntent"
+            android:textSize="16dp" />
 
     </LinearLayout>
 

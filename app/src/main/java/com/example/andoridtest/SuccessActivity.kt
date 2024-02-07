@@ -16,7 +16,7 @@ class SuccessActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.buttonIntent)
 
         val ime = intent.getStringExtra("name")
-        text.text = "$ime uspješno ste napravili 10 koraka"
+        text.text = "Reached goal: 10 steps\nCongratulations $ime!"
 
         button.setOnClickListener {
             val uri: Uri = Uri.parse("smsto:02345141212345")
