@@ -2,18 +2,21 @@ package com.example.andoridtest
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-    lateinit var textCount: TextView
-    lateinit var sharedPref : SharedPreferences
+    private lateinit var textCount: TextView
+    private lateinit var sharedPref : SharedPreferences
+    private lateinit var button : Button
     companion object {
-        const val COUNT_KEY = "COUNT_KEY" // const key to save/read value from bundle
+        const val COUNT_KEY = "COUNT_KEY"
     }
 
     private var counter = 0
@@ -24,10 +27,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        button = findViewById(R.id.buttonDown)
         textCount = findViewById<View>(R.id.textView) as TextView
         sharedPref = getPreferences(MODE_PRIVATE)
         sharedPref.getInt("count", counter)
-        Log.i("MyLog", "valOnStart ${counter}")
+        Log.i("MyLog", "valOnStart $counter")
     }
 
     override fun onStart() {
@@ -53,10 +57,10 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(applicationContext, "onPause", Toast.LENGTH_SHORT).show()
         Log.i("MyLog", "onPause")
         sharedPref.edit().putInt("count", counter).apply()
-        Log.i("MyLog", "valOnStop ${counter}")
-        var numberSharedPref = 69
+        Log.i("MyLog", "valOnStop $counter")
+        val numberSharedPref = 66
         sharedPref.getInt("count", numberSharedPref)
-        Log.i("MyLog", "valOnStopRet ${numberSharedPref}")
+        Log.i("MyLog", "valOnStopRet $numberSharedPref")
 
     }
     override fun onStop() {
@@ -72,20 +76,28 @@ class MainActivity : AppCompatActivity() {
 
     }
     fun setOnClickListenerUp(view: View) {
-        counter = textCount.text.toString().toInt() + 1
+        counter++
+        textCount.text = counter.toString()
         if (counter == 10)
         {
             val intent = Intent(this, SuccessActivity::class.java).apply {
-                putExtra("name", findViewById<TextView>(R.id.plainTextName).text.toString());
+                putExtra("name", findViewById<TextView>(R.id.plainTextName).text.toString())
             }
-            startActivity(intent);
-            counter = 0
-        }
-        textCount.text = counter.toString()
+            startActivity(intent)
 
+            button.isClickable = false
+            button.setBackgroundColor(Color.RED)
+
+        } else if (counter == 11) {
+            counter = 0
+            button.isClickable = true
+            button.setBackgroundColor(Color.MAGENTA)
+        }
+
+        textCount.text = counter.toString()
     }
     fun setOnClickListenerDown(view: View) {
-        if(counter > 0)   {
+        if(counter > 0) {
             counter--
             textCount.text = counter.toString()
         }
