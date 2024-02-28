@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         sharedPref.getInt("count", counter)
         textContextMenu = findViewById(R.id.textViewContextMenu)
         registerForContextMenu(textContextMenu);
+
         Log.i("MyLog", "valOnStart $counter")
     }
 
@@ -169,7 +170,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.croatian -> {
                 setLocale(context = this, languageCode = "hr")
-                recreate() // Recreate the activity to apply the language change
+                finish()
+                startActivity(getIntent())
                 return true
             }
 
