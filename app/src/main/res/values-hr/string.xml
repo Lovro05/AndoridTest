@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="buttonUp">GORE</string>
+    <string name="buttonDown">DOLJE</string>
+    <string name="textViewContextMenu">Drži me</string>
+</resources>

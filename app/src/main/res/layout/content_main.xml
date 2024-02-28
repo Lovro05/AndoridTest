@@ -45,24 +45,24 @@
 
         <Button
             android:id="@+id/buttonUp"
-            android:gravity="center"
             android:layout_width="wrap_content"
-            android:height="75dp"
-            android:width="145dp"
             android:layout_height="wrap_content"
+            android:width="145dp"
+            android:height="75dp"
+            android:gravity="center"
             android:onClick="setOnClickListenerUp"
-            android:textSize="25dp"
-            android:text="UP" />
+            android:text="@string/buttonUp"
+            android:textSize="25dp" />
 
         <Button
             android:id="@+id/buttonDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:height="75dp"
             android:width="145dp"
+            android:height="75dp"
             android:onClick="setOnClickListenerDown"
-            android:textSize="25dp"
-            android:text="DOWN" />
+            android:text="@string/buttonDown"
+            android:textSize="25dp" />
 
         <TextView
             android:id="@+id/plainTextName"
@@ -78,12 +78,12 @@
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:layout_centerHorizontal="true"
-            android:text="Hold me"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:paddingBottom="2dp"
             android:paddingLeft="99dp"
             android:paddingTop="14dp"
+            android:paddingBottom="2dp"
+            android:text="@string/textViewContextMenu"
+            android:textColor="#fff"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>

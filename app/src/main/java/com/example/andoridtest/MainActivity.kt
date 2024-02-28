@@ -1,7 +1,10 @@
 package com.example.andoridtest
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spannable
@@ -17,6 +20,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
+import android.os.LocaleList
+import java.util.*
+import java.util.Locale
 
 
 class MainActivity : AppCompatActivity() {
@@ -134,6 +141,25 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    private fun setLocale(context: Context, languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val resources: Resources = context.resources
+        val config: Configuration = resources.configuration
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val localeList = LocaleList(locale)
+            LocaleList.setDefault(localeList)
+            config.setLocales(localeList)
+
+        } else {
+            config.locale = locale
+        }
+
+        resources.updateConfiguration(config, resources.displayMetrics)
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.restore_counter -> {
@@ -142,8 +168,11 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.croatian -> {
-                true
+                setLocale(context = this, languageCode = "hr")
+                recreate() // Recreate the activity to apply the language change
+                return true
             }
+
             R.id.english -> {
                 true
             }
@@ -154,10 +183,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
         super.onCreateContextMenu(menu, v, menuInfo)
 
-        // Create a SpannableString with the text "Counter = " followed by the counter value
         val spannableString = SpannableString("Counter = $counter")
 
-        // Create a ForegroundColorSpan and set it to Color.RED
         val colorSpan = ForegroundColorSpan(Color.RED)
 
         // Apply the ForegroundColorSpan to the entire length of the SpannableString
