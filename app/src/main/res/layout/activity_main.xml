@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-
+        android:id="@+id/linearLayout"
         android:layout_width="272dp"
         android:layout_height="500dp"
         android:layout_marginStart="72dp"
@@ -25,13 +25,22 @@
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/myToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#BDAADF"
+            tools:ignore="MissingConstraints" />
+
+
         <TextView
             android:id="@+id/textView"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="48sp"
-            android:textColor="@android:color/holo_blue_bright"
+            android:background="?colorSecondary"
+            android:textColor="?colorOnSecondary"
             android:text="0" />
 
         <Button
@@ -60,8 +69,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="52sp"
-            android:textColor="@android:color/holo_blue_bright"
+            android:background="?colorSecondary"
+            android:textColor="?colorOnSecondary"
             android:text="BO" />
+
+        <TextView
+            android:id="@+id/textViewContextMenu"
+            android:layout_width="match_parent"
+            android:layout_height="37dp"
+            android:layout_centerHorizontal="true"
+            android:text="Drži me!"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="99dp"
+            android:paddingTop="14dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

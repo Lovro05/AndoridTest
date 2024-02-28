@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@android:color/holo_blue_bright"
+            android:background="?colorSecondary"
+            android:textColor="?colorOnSecondary"
             android:textSize="19dp" />
 
         <Button
