@@ -3,18 +3,28 @@ package com.example.andoridtest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
+import android.view.ContextMenu
+import android.view.ContextMenu.ContextMenuInfo
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var textCount: TextView
     private lateinit var sharedPref : SharedPreferences
     private lateinit var button : Button
+    private lateinit var textContextMenu: TextView
+
     companion object {
         const val COUNT_KEY = "COUNT_KEY"
     }
@@ -27,10 +37,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(findViewById(R.id.myToolbar))
         button = findViewById(R.id.buttonDown)
         textCount = findViewById<View>(R.id.textView) as TextView
         sharedPref = getPreferences(MODE_PRIVATE)
         sharedPref.getInt("count", counter)
+        textContextMenu = findViewById(R.id.textViewContextMenu)
+        registerForContextMenu(textContextMenu);
         Log.i("MyLog", "valOnStart $counter")
     }
 
@@ -91,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         } else if (counter == 11) {
             counter = 0
             button.isClickable = true
-            button.setBackgroundColor(Color.MAGENTA)
+            button.setBackgroundColor(Color.rgb(255,165,0))
         }
 
         textCount.text = counter.toString()
@@ -114,5 +127,56 @@ class MainActivity : AppCompatActivity() {
         Log.i("MyLog", "onRestoreInstanceState")
 
         counter = savedInstanceState.getInt(COUNT_KEY)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.restore_counter -> {
+                counter = 0
+                button.setBackgroundColor(Color.rgb(255,165,0))
+                true
+            }
+            R.id.croatian -> {
+                true
+            }
+            R.id.english -> {
+                true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        // Create a SpannableString with the text "Counter = " followed by the counter value
+        val spannableString = SpannableString("Counter = $counter")
+
+        // Create a ForegroundColorSpan and set it to Color.RED
+        val colorSpan = ForegroundColorSpan(Color.RED)
+
+        // Apply the ForegroundColorSpan to the entire length of the SpannableString
+        spannableString.setSpan(
+            colorSpan,
+            0,
+            spannableString.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        // SpannableString -> HeaderTitle Context menu (kontekstualnog izbornika)
+        menu.setHeaderTitle(spannableString)
+        menu.add(0, v.id, 0, "Reset")
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        if (item.title === "Reset") {
+            counter = 0
+        }
+        return true
     }
 }
