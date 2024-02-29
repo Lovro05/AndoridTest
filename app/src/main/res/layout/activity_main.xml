@@ -29,7 +29,7 @@
             android:id="@+id/myToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#BDAADF"
+            android:background="#9484AF"
             tools:ignore="MissingConstraints" />
 
 
@@ -68,22 +68,22 @@
             android:id="@+id/plainTextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="52sp"
             android:background="?colorSecondary"
+            android:text="NI"
             android:textColor="?colorOnSecondary"
-            android:text="BO" />
+            android:textSize="52sp" />
 
         <TextView
             android:id="@+id/textViewContextMenu"
             android:layout_width="match_parent"
             android:layout_height="37dp"
             android:layout_centerHorizontal="true"
-            android:text="Hold me"
-            android:textColor="#fff"
-            android:textSize="20sp"
-            android:paddingBottom="2dp"
             android:paddingLeft="99dp"
             android:paddingTop="14dp"
+            android:paddingBottom="2dp"
+            android:text="Drži Nia!!"
+            android:textColor="#fff"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
